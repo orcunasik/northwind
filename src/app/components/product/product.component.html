@@ -16,30 +16,40 @@
     placeholder="Aranacak Ürünü Giriniz"
   />
 </div>
-    
-<div *ngIf="filterText" class="alert alert-success"> 
-    {{filterText}} aradınız
+
+<div *ngIf="filterText" class="alert alert-success">
+  {{ filterText }} aradınız
 </div>
 
 <table *ngIf="dataLoaded == true" class="table">
   <thead>
     <tr>
-      <th scope="col">Kayıt No</th>
+      <th scope="col">No</th>
       <th scope="col">Ürün Adı</th>
       <th scope="col">Kategori No</th>
       <th scope="col">Fiyatı</th>
       <th scope="col">Kdv'li Fiyat</th>
       <th scope="col">Stok Adedi</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let product of products | filterPipe:filterText">
+    <tr *ngFor="let product of products | filterPipe: filterText">
       <td>{{ product.productId }}</td>
       <td>{{ product.productName | uppercase }}</td>
       <td>{{ product.categoryId }}</td>
       <td>{{ product.unitPrice }}</td>
       <td>{{ product.unitPrice | vatAdded: 18 | currency }}</td>
       <td>{{ product.unitsInStock }}</td>
+      <td>
+        <button
+          (click)="addToCart(product)"
+          type="button"
+          class="btn btn-success"
+        >
+          Sepete Ekle
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
